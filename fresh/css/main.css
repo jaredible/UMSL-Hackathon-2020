@@ -1,0 +1,50 @@
+::-webkit-scrollbar {
+	width: 10px;
+	background-color: #000;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 30px;
+	background: linear-gradient(to top, #485563, #29323c);
+}
+
+::-webkit-scrollbar-track {
+	background-color: #000;
+	border-radius: 10px;
+	background: linear-gradient(
+		to top,
+		#201c29,
+		#201c29 1px,
+		#100e17 1px,
+		#100e17
+	);
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+#main-background {
+	background-color: #191919;
+	background-image: linear-gradient(to top, #232526, #414345);
+}
+
+.cushioned {
+	margin: 0.1rem !important;
+}
+
+.max-width {
+	width: 100%;
+}
+
+.no-margin {
+	margin: 0 !important;
+}
+
+.no-top-border-radius {
+	border-radius: 0 0 0.2rem 0.2rem !important;
+}
+
+.no-bottom-border-radius {
+	border-radius: 0.2rem 0.2rem 0 0 !important;
+}
