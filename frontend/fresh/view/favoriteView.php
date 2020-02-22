@@ -55,3 +55,30 @@ $fav_recipe = ["Healthy Loaf Bread", "Sloppy Joes"];
 </div>
 
 <div class="ui hidden divider"></div>
+
+<!-- List Recipes and redirect to recipe information after clicked Information -->
+<div class="ui container">
+    <?php for($i = 0; $i < count($fav_recipe) ; $i++) {?>
+        <div id="card<?php print $i ?>" class="ui link cards">
+            <div class="card">
+                <div class="content">
+                    <div class="header">
+                        <a href="recipeItemView.php?recipeItem=<?php print $i ?>"><?php print $fav_recipe[$i] ?></a>
+                    </div>
+                </div>
+                <div class="extra content">
+                    <span>
+                    <button onclick="getElementById('card<?php print $i?>').style.display='none'" class="ui inverted red button"><!-- onclick="window.location.href = './favoriteView.php'"  -->
+                        Remove
+                    </button>
+                  </span>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+</div>
+
+
+</body>
+
+</html>
