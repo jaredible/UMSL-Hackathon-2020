@@ -1,2 +1,1 @@
-# UMSLHACK-v4
-UMSLHACK|2020
+# USML Hackathon 2020
