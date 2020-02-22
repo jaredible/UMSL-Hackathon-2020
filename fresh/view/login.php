@@ -6,7 +6,7 @@ session_start();
 
 /* If user already signed in, redirect to a specific page */
 if (isset($_SESSION["user_id"])) {
-    header("Location: ./index.php");
+    header("Location: ../index.php");
     exit();
 }
 
@@ -15,7 +15,7 @@ if (isset($_SESSION["user_id"])) {
 if (isset($_POST["login"])) {
     if (isset($_POST["username"]) && isset($_POST["password"])) {
         /* Database connection */
-        $con = (require_once "./connection.php");
+        $con = (require_once "../server/connection.php");
 
         $username = $_POST["username"];
         $password = $_POST["password"];
@@ -31,7 +31,7 @@ if (isset($_POST["login"])) {
 
         /* If user already signed in, redirect to a specific page */
         if (isset($_SESSION["user_id"])) {
-            header("Location: ./admin.php");
+            header("Location: ../index.php");
             exit();
         }
     }
@@ -77,7 +77,7 @@ if (isset($_POST["login"])) {
         }
     </style>
 
-    <title>Database Managment Login</title>
+    <title>Login</title>
 </head>
 
 <body id="main-background" class="dimmable">
@@ -112,7 +112,7 @@ if (isset($_POST["login"])) {
                                 </div>
                             </div>
                             <div class="field">
-                                <button class="fluid ui blue button" type="submit" name="login">
+                                <button class="fluid ui teal button" type="submit" name="login">
                                     <i class="fa fa-sign-in"></i>&emsp;Sign In
                                 </button>
                             </div>
