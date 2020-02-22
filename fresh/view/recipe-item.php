@@ -6,6 +6,12 @@ session_start();
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
+$recipe = array(
+    "Cinnamon Baked French Toast", "Brown Sugar Oatmeal Cookies", "Wafflemaker Hash Browns",
+    "Pan Fried Pork Chops", "Chocolate Peanut Butter Pie", "Chicken Thighs with Creamy Mustard Sauce",
+    "Cauliflower Pizza Crust", "Pesto Lasagna Rolls", "Chicken Tortilla Dump Dinner",
+    "Chocolate Lava Cakes", "Alfredo Shrimp Scampi Dump Dinner", "Southern Red Velvet Cake"
+);
 $recipeInstruction = [
     "Cook XYZ",
     "Cook XYZ",
@@ -20,10 +26,10 @@ $recipeInstruction = [
     "Cook XYZ",
     "Cook XYZ"
 ];
-$pos = null;
 
+$index = 0;
 if (isset($_GET['recipeItem'])) {
-    $pos = intval($_GET['recipeItem']);
+    $index = intval($_GET['recipeItem']);
 }
 ?>
 
@@ -69,7 +75,7 @@ if (isset($_GET['recipeItem'])) {
         <!-- Navigation Menu -->
         <div class="ui borderless stackable no-top-border-radius no-margin inverted pointing menu">
             <!-- Menu Dropdown Button -->
-            <a class="item"><i class="fa fa-bars"></i></a>
+            <a class="item"><i class="fa fa-home"></i></a>
             &emsp;
 
             <!-- Page Menu -->
@@ -80,7 +86,7 @@ if (isset($_GET['recipeItem'])) {
 
             <!-- Refresh/Login Button -->
             <div class="right menu">
-                <a class="item" href="<?php echo basename(__FILE__) ?>?recipeItem=<?php echo $pos ?>">
+                <a class="item" href="<?php echo basename(__FILE__) ?>?recipeItem=<?php echo $index ?>">
                     <i class="fa fa-refresh"></i>&emsp;Refresh
                 </a>
 
@@ -102,23 +108,23 @@ if (isset($_GET['recipeItem'])) {
 
     <div class="ui hidden divider"></div>
 
-    <!-- List Recipes and redirect to recipe information after clicked Information -->
+    <!-- List recipes and redirect to recipe information after clicked information -->
     <div class="ui container">
-
-        <div class="ui link cards">
-            <div class="card">
-                <div class="content">
-                    <div class="header">
-                        <h2><?php print $recipeInstruction[$pos] ?></h2>
-                    </div>
+        <a class="ui fluid black card">
+            <div class="content">
+                <div class="header"><?php echo $recipe[$index] ?></div>
+                <div class="description">
+                    <p><?php echo $recipeInstruction[$index] ?></p>
                 </div>
-                <span>
-                    <a type="button" href="recipe.php" class="ui primary button">
-                        Go back
-                    </a>
-                </span>
             </div>
-        </div>
+            <div class="extra content">
+                <div class="left floated">
+                    <button id="like<?php print $i ?>" class="ui compact teal button" onclick="window.location.href ='recipe.php'">
+                        <i class="fa fa-undo"></i>&emsp;Go Back
+                    </button>
+                </div>
+            </div>
+        </a>
     </div>
 </body>
 

@@ -53,7 +53,7 @@ $fav_recipe = ["Healthy Loaf Bread", "Sloppy Joes"];
         <!-- Navigation Menu -->
         <div class="ui borderless stackable no-top-border-radius no-margin inverted pointing menu">
             <!-- Menu Dropdown Button -->
-            <a class="item"><i class="fa fa-bars"></i></a>
+            <a class="item"><i class="fa fa-home"></i></a>
             &emsp;
 
             <!-- Page Menu -->
