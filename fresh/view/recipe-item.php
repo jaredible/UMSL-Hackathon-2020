@@ -6,10 +6,19 @@ session_start();
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
-$recipe_description = [
-    "Cook 2 hours and settle for 10 minutes",
-    "Oven cook 1 hours and settle for 2 minutes",
-    "Boil 12 hours and settle for 30 minutes"
+$recipeInstruction = [
+    "Cook XYZ",
+    "Cook XYZ",
+    "Cook XYZ",
+    "Cook XYZ",
+    "Cook XYZ",
+    "Cook XYZ",
+    "Cook XYZ",
+    "Cook XYZ",
+    "Cook XYZ",
+    "Cook XYZ",
+    "Cook XYZ",
+    "Cook XYZ"
 ];
 $pos = null;
 
@@ -71,7 +80,7 @@ if (isset($_GET['recipeItem'])) {
 
             <!-- Refresh/Login Button -->
             <div class="right menu">
-                <a class="item" href="<?php echo basename(__FILE__) ?>">
+                <a class="item" href="<?php echo basename(__FILE__) ?>?recipeItem=<?php echo $pos ?>">
                     <i class="fa fa-refresh"></i>&emsp;Refresh
                 </a>
 
@@ -100,11 +109,11 @@ if (isset($_GET['recipeItem'])) {
             <div class="card">
                 <div class="content">
                     <div class="header">
-                        <h2><?php print $recipe_description[$pos] ?></h2>
+                        <h2><?php print $recipeInstruction[$pos] ?></h2>
                     </div>
                 </div>
                 <span>
-                    <a type="button" href="recipeView.php" class="ui primary button">
+                    <a type="button" href="recipe.php" class="ui primary button">
                         Go back
                     </a>
                 </span>

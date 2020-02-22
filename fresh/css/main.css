@@ -26,7 +26,7 @@ html {
 
 #main-background {
 	background-color: #191919;
-	background-image: linear-gradient(to top, #232526, #414345);
+	background-image: linear-gradient(to top, #232526, #414345, #232526);
 }
 
 .cushioned {

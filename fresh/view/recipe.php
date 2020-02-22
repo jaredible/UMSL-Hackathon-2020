@@ -6,11 +6,29 @@ session_start();
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
-$recipe = array();
-$recipe = ["Healthy Loaf Bread", "Sloppy Joes", "Vegetable Noodle Soup"];
+$recipe = array(
+    "Cinnamon Baked French Toast", "Brown Sugar Oatmeal Cookies", "Wafflemaker Hash Browns",
+    "Pan Fried Pork Chops", "Chocolate Peanut Butter Pie", "Chicken Thighs with Creamy Mustard Sauce",
+    "Cauliflower Pizza Crust", "Pesto Lasagna Rolls", "Chicken Tortilla Dump Dinner",
+    "Chocolate Lava Cakes", "Alfredo Shrimp Scampi Dump Dinner", "Southern Red Velvet Cake"
+);
+$recipeDescription = array(
+    "Ree Drummond's baked french toast is perfect for brunch or any special weekend breakfast.",
+    "Brown sugar gives these sweet, baked treats a unique (and totally irresistible) flavor.",
+    "Who knew that waffles and hashbrowns could be one and the same?!",
+    "Golden-brown porkchops with a side of smashed new potatoes makes the perfect family-friendly weeknight meal.",
+    "If pie crust intimidates you, try this sweet and easy-to-make chocolate cookie crust instead. It's the perfect base for creamy peanut butter filling.",
+    "Chicken thighs are the unsung hero of weeknight dinners; they're inexpensive, versatile and delicious. In this recipe, Ina proves that they don't need much to become a delicious, crowd-pleasing meal.",
+    "Katie Lee's cauliflower pizza is low in carbs but big on flavor. What's not to love?",
+    "Each of these noodle roll-ups has just the right amount of filling and bakes in a fraction of the time that a traditional deep-dish lasagna would.",
+    "All your favorite Tex-Mex flavors in a comforting casserole that's fast and easy to throw together.",
+    "Get ready to impress your friends and family with this homemade dessert — bursting with warm, melted chocolate.",
+    "Just dump a box of pasta, bag of shrimp and a few other pantry staples into a dish and bake. Right before serving, stir in the heavy cream and top with grated cheese and fresh parsley for a rich and creamy weeknight dinner in a flash.",
+    "It's hard to go wrong with a classic. Red velvet cake is layered with sweet cream cheese frosting for a tasty and traditional treat."
+);
 
-$likes = [14, 18, 19];
-$dislikes = [0, 0, 0];
+$likes = [14, 18, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+$dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 ?>
 
 <!DOCTYPE html>
@@ -92,43 +110,61 @@ $dislikes = [0, 0, 0];
 
     <!-- List Recipes and redirect to recipe information after clicked Information -->
     <div class="ui container">
-        <?php for ($i = 0; $i < count($recipe); $i++) { ?>
-            <div class="ui link cards">
-                <div class="card">
+        <div class="ui four stackable cards">
+            <?php for ($i = 0; $i < count($recipe); $i++) : ?>
+                <a class="ui black card">
                     <div class="content">
-                        <div class="header">
-                            <a href="recipe-item.php?recipeItem=<?php print $i ?>"><?php print $recipe[$i] ?></a>
+                        <div class="header"><?php echo $recipe[$i] ?></div>
+                        <div class="description">
+                            <p><?php echo $recipeDescription[$i] ?></p>
                         </div>
                     </div>
+
                     <div class="extra content">
-                        <span class="right floated">
-                            <div class="ui labeled button" tabindex="0">
-                                <div id="like<?php print $i ?>" class="ui button">
-                                    <i class="thumbs up icon"></i> Like
-                                </div>
-                                <span id="l-val<?php print $i ?>" class="ui basic label">
+                        <div class="left floated">
+                            <div class="ui labeled button">
+                                <button id="like<?php print $i ?>" class="ui compact green button">
+                                    <i class="fa fa-thumbs-up"></i>
+                                </button>
+                                <span id="l-val<?php print $i ?>" class="ui basic green label">
                                     <?php print $likes[$i] ?>
                                 </span>
                             </div>
-                            <div class="ui labeled button" tabindex="0">
-                                <div id="dislike<?php print $i ?>" class="ui button">
-                                    <i class="thumbs down icon"></i> Like
-                                </div>
-                                <span id="d-val<?php print $i ?>" class="ui basic label">
+                        </div>
+
+                        <div class="right floated">
+                            <div class="ui labeled button">
+                                <button id="dislike<?php print $i ?>" class="ui compact red button">
+                                    <i class="fa fa-thumbs-down"></i>
+                                </button>
+                                <span id="d-val<?php print $i ?>" class="ui basic red label">
                                     <?php print $dislikes[$i] ?>
                                 </span>
                             </div>
-                        </span>
-                        <span>
-                            <button onclick="this.disabled=true" class="ui inverted green button">
-                                <!-- onclick="window.location.href = './favoriteView.php'"  -->
-                                Add to fav
-                            </button>
-                        </span>
+                        </div>
                     </div>
-                </div>
-            </div>
-        <?php } ?>
+
+                    <div class="extra content">
+                        <div class="left floated">
+                            <button id="like<?php print $i ?>" class="ui compact teal button" onclick="window.location.href ='recipe-item.php?recipeItem=<?php echo $i ?>'">
+                                <i class="fa fa-list"></i>&emsp;More
+                            </button>
+                        </div>
+
+                        <div class="right floated">
+                            <div class="ui buttons">
+                                <button class="ui compact yellow button">
+                                    <i class="fa fa-star"></i>
+                                </button>
+                                <button class="ui compact blue button">
+                                    <i class="fa fa-cart-plus"></i></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <?php endfor; ?>
+        </div>
     </div>
 
 
