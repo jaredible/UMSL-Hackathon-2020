@@ -6,9 +6,12 @@ session_start();
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
-$recipe = array();
-$fav_recipe = ["Healthy Loaf Bread", "Sloppy Joes"];
+$ingredient_name = ['apple', 'beef', 'cilantro'];
+$ingredient_measure = ['count', 'lbs', 'bunch'];
+$total_amount = [4, 2, 1];
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -37,7 +40,7 @@ $fav_recipe = ["Healthy Loaf Bread", "Sloppy Joes"];
     <!-- JS -->
     <script type="text/javascript" src="../js/misc.js"></script>
 
-    <title>Favorite</title>
+    <title>Cart</title>
 </head>
 
 <body id="main-background" class="dimmable">
@@ -83,6 +86,57 @@ $fav_recipe = ["Healthy Loaf Bread", "Sloppy Joes"];
     </div>
 
     <div class="ui hidden divider"></div>
+
+    <!-- Ingredient Table -->
+    <div class="ui container">
+        <form class="ui form" method="POST" action="confirmation.php">
+            <table class="ui selectable fixed striped table">
+                <!-- Column Name: Label -->
+                <thead>
+                    <tr class="center aligned">
+                        <th><strong>Ingredient Name</strong></th>
+                        <th><strong>Total Amount</strong></th>
+                        <th><strong>Measure</strong></th>
+                        <th><strong>Include</strong></th>
+                    </tr>
+                </thead>
+
+                <!-- Display Data -->
+                <tbody>
+                    <div class="field">
+                        <?php for ($i = 0; $i < count($ingredient_name); $i++) : ?>
+                            <tr class="center aligned">
+                                <td>
+                                    <div class="field">
+                                        <p><?php echo ucwords($ingredient_name[$i]) ?></p>
+                                        <input type="hidden" name="<?php echo $ingredient_name[$i] ?>" value="<?php echo $ingredient_name[$i] ?>">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="field">
+                                        <p><?php echo $total_amount[$i] ?></p>
+                                        <input type="hidden" name="<?php echo $ingredient_name[$i] ?>_total" value="<?php echo $total_amount[$i] ?>">
+                                    </div>
+                                </td>
+                                <td>
+                                    <p><?php echo $ingredient_measure[$i] ?></p>
+                                    <input class="right aligned" type="hidden" name="<?php echo $ingredient_name[$i] ?>_measure" value="<?php echo $ingredient_measure[$i] ?>">
+                                </td>
+                                <td>
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="<?php echo $ingredient_name[$i] ?>_check" checked>
+                                        <label>Add</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endfor; ?>
+                    </div>
+                </tbody>
+            </table>
+            <input type="hidden" name="submit_cart" />
+            <button class="ui right floated teal button" type="submit">Submit</button>
+        </form>
+    </div>
 </body>
 
 </html>

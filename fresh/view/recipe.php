@@ -57,7 +57,6 @@ $dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     <!-- JS -->
     <script type="text/javascript" src="../js/misc.js"></script>
-    <script type="text/javascript" src="../js/index.js"></script>
     <script type="text/javascript" src="../js/recipe.js"></script>
 
     <title>Recipe</title>
@@ -71,11 +70,10 @@ $dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     <!-- Navigation Menu -->
     <div class="ui container">
-
         <!-- Navigation Menu -->
         <div class="ui borderless stackable no-top-border-radius no-margin inverted pointing menu">
-            <!-- Menu Dropdown Button -->
-            <a class="item"><i class="fa fa-bars"></i></a>
+            <!-- Home Button -->
+            <a class="item" href="../index.php"><i class="fa fa-home"></i></a>
             &emsp;
 
             <!-- Page Menu -->
@@ -108,7 +106,7 @@ $dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     <div class="ui hidden divider"></div>
 
-    <!-- List Recipes and redirect to recipe information after clicked Information -->
+    <!-- List recipes and redirect to recipe information after clicked information -->
     <div class="ui container">
         <div class="ui four stackable cards">
             <?php for ($i = 0; $i < count($recipe); $i++) : ?>
@@ -123,22 +121,22 @@ $dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                     <div class="extra content">
                         <div class="left floated">
                             <div class="ui labeled button">
-                                <button id="like<?php print $i ?>" class="ui compact green button">
+                                <button id="like<?php echo $i ?>" class="ui compact green button">
                                     <i class="fa fa-thumbs-up"></i>
                                 </button>
-                                <span id="l-val<?php print $i ?>" class="ui basic green label">
-                                    <?php print $likes[$i] ?>
+                                <span id="l-val<?php echo $i ?>" class="ui basic green label">
+                                    <?php echo $likes[$i] ?>
                                 </span>
                             </div>
                         </div>
 
                         <div class="right floated">
                             <div class="ui labeled button">
-                                <button id="dislike<?php print $i ?>" class="ui compact red button">
+                                <button id="dislike<?php echo $i ?>" class="ui compact red button">
                                     <i class="fa fa-thumbs-down"></i>
                                 </button>
-                                <span id="d-val<?php print $i ?>" class="ui basic red label">
-                                    <?php print $dislikes[$i] ?>
+                                <span id="d-val<?php echo $i ?>" class="ui basic red label">
+                                    <?php echo $dislikes[$i] ?>
                                 </span>
                             </div>
                         </div>
@@ -146,7 +144,7 @@ $dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
                     <div class="extra content">
                         <div class="left floated">
-                            <button id="like<?php print $i ?>" class="ui compact teal button" onclick="window.location.href ='recipe-item.php?recipeItem=<?php echo $i ?>'">
+                            <button id="like<?php echo $i ?>" class="ui compact teal button" onclick="window.location.href ='recipe-item.php?recipeItem=<?php echo $i ?>'">
                                 <i class="fa fa-list"></i>&emsp;More
                             </button>
                         </div>
