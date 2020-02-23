@@ -3,6 +3,11 @@
 /* Start Session */
 session_start();
 
+/* ==================================================
+Query function that can be use in the future...
+==================================================*/
+
+
 /* Remove specific session */
 unset($_SESSION["database_message"]);
 unset($_SESSION["database_message_type"]);
@@ -152,4 +157,3 @@ else
     header("Location: ../index.php?redirect");
     exit();
 }
-?>

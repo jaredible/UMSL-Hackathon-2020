@@ -7,7 +7,8 @@ session_start();
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
 
-/* NOTE: this is just a simulation */
+/* NOTE: this is just a simulation for a database */
+//Dummy data to display
 if (isset($_POST["add_favorite"])) {
     if (isset($_SESSION["user_favorite_list"])) {
         $userList = $_SESSION["user_favorite_list"];
@@ -51,11 +52,30 @@ $recipeDescription = array(
     "It's hard to go wrong with a classic. Red velvet cake is layered with sweet cream cheese frosting for a tasty and traditional treat."
 );
 
-$likes = array(14, 18, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-$dislikes = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+/* Simulating getting like and dislike values */
+if (!isset($_SESSION["likes"])) {
+    $l = array_fill(0, 12, 0);
+    $_SESSION["likes"] = $l;
+}
 
-//
-// unset($_SESSION["user_favorite_list"]);
+if (!isset($_SESSION["dislikes"])) {
+    $dl = array_fill(0, 12, 0);
+    $_SESSION["dislikes"] = $dl;
+}
+
+$likes = $_SESSION["likes"];
+$dislikes = $_SESSION["dislikes"];
+
+/* Simulating updating like and dislike values */
+if (isset($_POST["like_id"]) && isset($_POST["like_value"])) {
+    $likes[intval($_POST["like_id"])] = intval($_POST["like_value"]);
+    $_SESSION["likes"] = $likes;
+}
+
+if (isset($_POST["dislike_id"]) && isset($_POST["dislike_value"])) {
+    $dislikes[intval($_POST["dislike_id"])] = intval($_POST["dislike_value"]);
+    $_SESSION["dislikes"] = $dislikes;
+}
 ?>
 
 <!DOCTYPE html>

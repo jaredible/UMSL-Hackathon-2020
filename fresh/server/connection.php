@@ -4,7 +4,6 @@
 $dbhost = "localhost";
 $dbuser = "root";
 $dbpassword = "";
-$dbname = "university";
+$dbname = "";
 $con = mysqli_connect($dbhost, $dbuser, $dbpassword, $dbname) or die("Could not connect: " . mysqli_error($con));
 return $con;
-?>

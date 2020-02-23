@@ -106,51 +106,53 @@ foreach ($ingredient_name as $element) {
 
     <!-- Ingredient Table -->
     <div class="ui container">
-        <table class="ui selectable fixed striped table">
-            <!-- Column Name: Label -->
-            <thead>
-                <tr class="center aligned">
-                    <th><strong>Ingredient Name</strong></th>
-                    <th><strong>Total Amount</strong></th>
-                    <th><strong>Measure</strong></th>
-                    <th><strong>Include</strong></th>
-                </tr>
-            </thead>
+        <form class="ui form" method="POST" action="payment.php">
+            <table class="ui selectable fixed inverted striped grey table">
+                <!-- Column Name: Label -->
+                <thead>
+                    <tr class="center aligned">
+                        <th><strong>Ingredient Name</strong></th>
+                        <th><strong>Total Amount</strong></th>
+                        <th><strong>Measure</strong></th>
+                        <th><strong>Include</strong></th>
+                    </tr>
+                </thead>
 
-            <!-- Display Data -->
-            <tbody>
-                <div class="field">
-                    <?php for ($i = 0; $i < count($ingredient_name); $i++) : ?>
-                        <tr class="center aligned">
-                            <td>
-                                <div class="field">
-                                    <p><?php echo ucwords($ingredient_name[$i]) ?></p>
-                                    <input type="hidden" name="<?php echo $ingredient_name[$i] ?>" value="<?php echo $ingredient_name[$i] ?>">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="field">
-                                    <p><?php echo $total_amount[$i] ?></p>
-                                    <input type="hidden" name="<?php echo $ingredient_name[$i] ?>_total" value="<?php echo $total_amount[$i] ?>">
-                                </div>
-                            </td>
-                            <td>
-                                <p><?php echo $ingredient_measure[$i] ?></p>
-                                <input class="right aligned" type="hidden" name="<?php echo $ingredient_name[$i] ?>_measure" value="<?php echo $ingredient_measure[$i] ?>">
-                            </td>
-                            <td>
-                                <div class="ui checkbox">
-                                    <input type="checkbox" name="<?php echo $ingredient_name[$i] ?>_check" checked>
-                                    <label>Add</label>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endfor; ?>
-                </div>
-            </tbody>
-        </table>
-        <button class="ui right floated red button" onclick="window.location.href ='cart.php'">Cancel</button>
-        <button class="ui right floated green button" onclick="window.location.href ='payment.php'">Proceed</button>
+                <!-- Display Data -->
+                <tbody>
+                    <div class="field">
+                        <?php for ($i = 0; $i < count($ingredient_name); $i++) : ?>
+                            <tr class="center aligned">
+                                <td>
+                                    <div class="field">
+                                        <p><?php echo ucwords($ingredient_name[$i]) ?></p>
+                                        <input type="hidden" name="<?php echo $ingredient_name[$i] ?>" value="<?php echo $ingredient_name[$i] ?>">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="field">
+                                        <p><?php echo $total_amount[$i] ?></p>
+                                        <input type="hidden" name="<?php echo $ingredient_name[$i] ?>_total" value="<?php echo $total_amount[$i] ?>">
+                                    </div>
+                                </td>
+                                <td>
+                                    <p><?php echo $ingredient_measure[$i] ?></p>
+                                    <input class="right aligned" type="hidden" name="<?php echo $ingredient_name[$i] ?>_measure" value="<?php echo $ingredient_measure[$i] ?>">
+                                </td>
+                                <td>
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="<?php echo $ingredient_name[$i] ?>_check" checked>
+                                        <label></label>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endfor; ?>
+                    </div>
+                </tbody>
+            </table>
+            <button class="ui right floated red button" onclick="window.location.href ='cart.php'">Cancel</button>
+            <button class="ui right floated green button" type="submit" name="confirmation_submit"">Proceed</button>
+        </form>
     </div>
 </body>
 

@@ -12,7 +12,7 @@ if (!isset($_SESSION["user_id"])) {
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
-/* NOTE: this is just a simulation */
+/* NOTE: this is just a simulation for a database*/
 if (isset($_POST["add_favorite"])) {
     if (isset($_SESSION["user_favorite_list"])) {
         $userList = $_SESSION["user_favorite_list"];

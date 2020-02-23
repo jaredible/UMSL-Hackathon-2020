@@ -3,9 +3,9 @@
 /* Start Session */
 session_start();
 
-/* If user didn't login, redirect to a specific page */
-if (!isset($_SESSION["user_id"])) {
-    header("Location: ./login.php");
+/* If user didn't submit from confirmation page, redirect to a specific page */
+if (!isset($_POST["confirmation_submit"])) {
+    header("Location: ./cart.php");
     exit();
 }
 
@@ -46,7 +46,7 @@ $total_amount = array(4, 2, 1);
     <!-- JS -->
     <script type="text/javascript" src="../js/misc.js"></script>
 
-    <title>Cart</title>
+    <title>Payment</title>
 </head>
 
 <body id="main-background" class="dimmable">
@@ -93,56 +93,8 @@ $total_amount = array(4, 2, 1);
 
     <div class="ui hidden divider"></div>
 
-    <!-- Ingredient Table -->
-    <div class="ui container">
-        <form class="ui form" method="POST" action="confirmation.php">
-            <table class="ui selectable fixed inverted striped grey table">
-                <!-- Column Name: Label -->
-                <thead>
-                    <tr class="center aligned">
-                        <th><strong>Ingredient Name</strong></th>
-                        <th><strong>Total Amount</strong></th>
-                        <th><strong>Measure</strong></th>
-                        <th><strong>Include</strong></th>
-                    </tr>
-                </thead>
+    <!-- Payment Form -->
 
-                <!-- Display Data -->
-                <tbody>
-                    <div class="field">
-                        <?php for ($i = 0; $i < count($ingredient_name); $i++) : ?>
-                            <tr class="center aligned">
-                                <td>
-                                    <div class="field">
-                                        <p><?php echo ucwords($ingredient_name[$i]) ?></p>
-                                        <input type="hidden" name="<?php echo $ingredient_name[$i] ?>" value="<?php echo $ingredient_name[$i] ?>">
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="field">
-                                        <p><?php echo $total_amount[$i] ?></p>
-                                        <input type="hidden" name="<?php echo $ingredient_name[$i] ?>_total" value="<?php echo $total_amount[$i] ?>">
-                                    </div>
-                                </td>
-                                <td>
-                                    <p><?php echo $ingredient_measure[$i] ?></p>
-                                    <input class="right aligned" type="hidden" name="<?php echo $ingredient_name[$i] ?>_measure" value="<?php echo $ingredient_measure[$i] ?>">
-                                </td>
-                                <td>
-                                    <div class="ui checkbox">
-                                        <input type="checkbox" name="<?php echo $ingredient_name[$i] ?>_check" checked>
-                                        <label></label>
-                                    </div>
-                                </td>
-                            </tr>
-                        <?php endfor; ?>
-                    </div>
-                </tbody>
-            </table>
-            <input type="hidden" name="submit_cart" />
-            <button class="ui right floated teal button" type="submit">Submit</button>
-        </form>
-    </div>
 </body>
 
 </html>

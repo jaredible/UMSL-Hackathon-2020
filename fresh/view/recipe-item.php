@@ -6,6 +6,7 @@ session_start();
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
+/* NOTE: this is just a simulation for a database*/
 $recipe = array(
     "Cinnamon Baked French Toast", "Brown Sugar Oatmeal Cookies", "Wafflemaker Hash Browns",
     "Pan Fried Pork Chops", "Chocolate Peanut Butter Pie", "Chicken Thighs with Creamy Mustard Sauce",

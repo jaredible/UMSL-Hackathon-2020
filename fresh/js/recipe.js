@@ -4,6 +4,11 @@ $(document).ready(function() {
 			y = $("#l-val" + x).html();
 			y++;
 			$("#l-val" + x).html(y);
+
+			$.post("../view/recipe.php", {
+				like_id: x,
+				like_value: y
+			});
 		});
 	});
 
@@ -12,6 +17,11 @@ $(document).ready(function() {
 			y = $("#d-val" + x).html();
 			y++;
 			$("#d-val" + x).html(y);
+
+			$.post("../view/recipe.php", {
+				dislike_id: x,
+				dislike_value: y
+			});
 		});
 	});
 });
