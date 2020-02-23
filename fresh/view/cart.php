@@ -6,9 +6,9 @@ session_start();
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
-$ingredient_name = ['apple', 'beef', 'cilantro'];
-$ingredient_measure = ['count', 'lbs', 'bunch'];
-$total_amount = [4, 2, 1];
+$ingredient_name = array('apple', 'beef', 'cilantro');
+$ingredient_measure = array('count', 'lbs', 'bunch');
+$total_amount = array(4, 2, 1);
 ?>
 
 

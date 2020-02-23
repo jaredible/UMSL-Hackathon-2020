@@ -6,8 +6,49 @@ session_start();
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
-$recipe = array();
-$fav_recipe = ["Healthy Loaf Bread", "Sloppy Joes"];
+/* NOTE: this is just a simulation */
+if (isset($_POST["add_favorite"])) {
+    if (isset($_SESSION["user_favorite_list"])) {
+        $userList = $_SESSION["user_favorite_list"];
+    } else {
+        $userList = array();
+    }
+
+    if (is_numeric($_POST["add_favorite"])) {
+        if ((in_array($_POST["add_favorite"], $userList)) === true) {
+            $userList = array_diff($userList, array($_POST["add_favorite"]));
+        } else {
+            array_push($userList, $_POST["add_favorite"]);
+        }
+    }
+    $_SESSION["user_favorite_list"] = $userList;
+}
+
+if (isset($_SESSION["user_favorite_list"])) {
+    $favoritePosition = $_SESSION["user_favorite_list"];
+} else {
+    $favoritePosition = array();
+}
+$recipe = array(
+    "Cinnamon Baked French Toast", "Brown Sugar Oatmeal Cookies", "Wafflemaker Hash Browns",
+    "Pan Fried Pork Chops", "Chocolate Peanut Butter Pie", "Chicken Thighs with Creamy Mustard Sauce",
+    "Cauliflower Pizza Crust", "Pesto Lasagna Rolls", "Chicken Tortilla Dump Dinner",
+    "Chocolate Lava Cakes", "Alfredo Shrimp Scampi Dump Dinner", "Southern Red Velvet Cake"
+);
+$recipeDescription = array(
+    "Ree Drummond's baked french toast is perfect for brunch or any special weekend breakfast.",
+    "Brown sugar gives these sweet, baked treats a unique (and totally irresistible) flavor.",
+    "Who knew that waffles and hashbrowns could be one and the same?!",
+    "Golden-brown porkchops with a side of smashed new potatoes makes the perfect family-friendly weeknight meal.",
+    "If pie crust intimidates you, try this sweet and easy-to-make chocolate cookie crust instead. It's the perfect base for creamy peanut butter filling.",
+    "Chicken thighs are the unsung hero of weeknight dinners; they're inexpensive, versatile and delicious. In this recipe, Ina proves that they don't need much to become a delicious, crowd-pleasing meal.",
+    "Katie Lee's cauliflower pizza is low in carbs but big on flavor. What's not to love?",
+    "Each of these noodle roll-ups has just the right amount of filling and bakes in a fraction of the time that a traditional deep-dish lasagna would.",
+    "All your favorite Tex-Mex flavors in a comforting casserole that's fast and easy to throw together.",
+    "Get ready to impress your friends and family with this homemade dessert — bursting with warm, melted chocolate.",
+    "Just dump a box of pasta, bag of shrimp and a few other pantry staples into a dish and bake. Right before serving, stir in the heavy cream and top with grated cheese and fresh parsley for a rich and creamy weeknight dinner in a flash.",
+    "It's hard to go wrong with a classic. Red velvet cake is layered with sweet cream cheese frosting for a tasty and traditional treat."
+);
 ?>
 
 <!DOCTYPE html>
@@ -83,6 +124,60 @@ $fav_recipe = ["Healthy Loaf Bread", "Sloppy Joes"];
     </div>
 
     <div class="ui hidden divider"></div>
+
+    <!-- List recipes and redirect to recipe information after clicked information -->
+    <div class="ui container">
+        <div class="ui four stackable cards">
+            <?php for ($i = 0; $i < count($recipe); $i++) : ?>
+                <?php if (in_array($i, $favoritePosition)) : ?>
+                    <a class="ui black card">
+                        <div class="content">
+                            <div class="header"><?php echo $recipe[$i] ?></div>
+                            <div class="description">
+                                <p><?php echo $recipeDescription[$i] ?></p>
+                            </div>
+                        </div>
+
+                        <div class="extra content">
+                            <div class="left floated">
+                                <button id="like<?php echo $i ?>" class="ui compact teal button" onclick="window.location.href ='recipe-item.php?recipeItem=<?php echo $i ?>'">
+                                    <i class="fa fa-list"></i>&emsp;More
+                                </button>
+                            </div>
+
+                            <form action="favorite.php" method="POST">
+                                <div class="right floated">
+                                    <div class="ui buttons">
+                                        <button class="ui compact yellow button">
+                                            <input type="hidden" name="add_favorite" value="<?php echo $i ?>" />
+                                            <?php if (in_array($i, $favoritePosition)) : ?>
+                                                <i class="fa fa-star"></i>
+                                            <?php else : ?>
+                                                <i class="fa fa-star-o"></i>
+                                            <?php endif; ?>
+                                        </button>
+                                        <button class="ui compact blue button">
+                                            <i class="fa fa-cart-plus"></i></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </a>
+                <?php endif; ?>
+            <?php endfor; ?>
+        </div>
+
+        <!-- Empty List -->
+        <?php if (empty($favoritePosition)) : ?>
+            <div class="ui container">
+                <div class="ui center aligned inverted grey segment">
+                    <i class="warning icon"></i>
+                    No item found! Please go to recipe menu to find your favorite.
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
 </body>
 
 </html>
