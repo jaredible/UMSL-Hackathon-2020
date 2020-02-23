@@ -57,7 +57,6 @@ $dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     <!-- JS -->
     <script type="text/javascript" src="../js/misc.js"></script>
-    <script type="text/javascript" src="../js/index.js"></script>
     <script type="text/javascript" src="../js/recipe.js"></script>
 
     <title>Recipe</title>
@@ -71,11 +70,10 @@ $dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     <!-- Navigation Menu -->
     <div class="ui container">
-
         <!-- Navigation Menu -->
         <div class="ui borderless stackable no-top-border-radius no-margin inverted pointing menu">
-            <!-- Menu Dropdown Button -->
-            <a class="item"><i class="fa fa-home"></i></a>
+            <!-- Home Button -->
+            <a class="item" href="../index.php"><i class="fa fa-home"></i></a>
             &emsp;
 
             <!-- Page Menu -->
