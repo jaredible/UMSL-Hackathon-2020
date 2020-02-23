@@ -65,8 +65,13 @@ $total_amount = array(4, 2, 1);
 
             <!-- Page Menu -->
             <?php for ($i = 0; $i < count($headerArray); $i++) : ?>
-                <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
-                            endif; ?>item" href="./<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                <?php if (in_array(strtolower($headerArray[$i]), array("tournament"))) : ?>
+                    <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
+                                endif; ?>item" href="../tournament/<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                <?php else : ?>
+                    <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
+                                endif; ?>item" href="./<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                <?php endif; ?>
             <?php endfor; ?>
 
             <!-- Refresh/Login Button -->
