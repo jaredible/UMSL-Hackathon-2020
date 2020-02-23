@@ -79,8 +79,15 @@ if (isset($_GET['recipeItem'])) {
 
             <!-- Page Menu -->
             <?php for ($i = 0; $i < count($headerArray); $i++) : ?>
-                <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
-                            endif; ?>item" href="./<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                <?php if (in_array(strtolower($headerArray[$i]), array("favorite", "cart"))) : ?>
+                    <?php if (isset($_SESSION["user_id"])) : ?>
+                        <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
+                                    endif; ?>item" href="./<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                    <?php endif; ?>
+                <?php else : ?>
+                    <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
+                                endif; ?>item" href="./<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                <?php endif; ?>
             <?php endfor; ?>
 
             <!-- Refresh/Login Button -->

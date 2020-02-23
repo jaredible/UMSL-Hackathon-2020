@@ -3,6 +3,12 @@
 /* Start Session */
 session_start();
 
+/* If user didn't login, redirect to a specific page */
+if (!isset($_SESSION["user_id"])) {
+    header("Location: ./login.php");
+    exit();
+}
+
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 

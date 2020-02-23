@@ -105,8 +105,15 @@ $dislikes = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
             <!-- Page Menu -->
             <?php for ($i = 0; $i < count($headerArray); $i++) : ?>
-                <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
-                            endif; ?>item" href="./<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                <?php if (in_array(strtolower($headerArray[$i]), array("favorite", "cart"))) : ?>
+                    <?php if (isset($_SESSION["user_id"])) : ?>
+                        <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
+                                    endif; ?>item" href="./<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                    <?php endif; ?>
+                <?php else : ?>
+                    <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
+                                endif; ?>item" href="./<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                <?php endif; ?>
             <?php endfor; ?>
 
             <!-- Refresh/Login Button -->
@@ -145,29 +152,31 @@ $dislikes = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                         </div>
                     </div>
 
-                    <div class="extra content">
-                        <div class="left floated">
-                            <div class="ui labeled button">
-                                <button id="like<?php echo $i ?>" class="ui compact green button">
-                                    <i class="fa fa-thumbs-up"></i>
-                                </button>
-                                <span id="l-val<?php echo $i ?>" class="ui basic green label">
-                                    <?php echo $likes[$i] ?>
-                                </span>
+                    <?php if (isset($_SESSION["user_id"])) : ?>
+                        <div class="extra content">
+                            <div class="left floated">
+                                <div class="ui labeled button">
+                                    <button id="like<?php echo $i ?>" class="ui compact green button">
+                                        <i class="fa fa-thumbs-up"></i>
+                                    </button>
+                                    <span id="l-val<?php echo $i ?>" class="ui basic green label">
+                                        <?php echo $likes[$i] ?>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="right floated">
-                            <div class="ui labeled button">
-                                <button id="dislike<?php echo $i ?>" class="ui compact red button">
-                                    <i class="fa fa-thumbs-down"></i>
-                                </button>
-                                <span id="d-val<?php echo $i ?>" class="ui basic red label">
-                                    <?php echo $dislikes[$i] ?>
-                                </span>
+                            <div class="right floated">
+                                <div class="ui labeled button">
+                                    <button id="dislike<?php echo $i ?>" class="ui compact red button">
+                                        <i class="fa fa-thumbs-down"></i>
+                                    </button>
+                                    <span id="d-val<?php echo $i ?>" class="ui basic red label">
+                                        <?php echo $dislikes[$i] ?>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
 
                     <div class="extra content">
                         <div class="left floated">
@@ -176,23 +185,25 @@ $dislikes = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                             </button>
                         </div>
 
-                        <form action="recipe.php" method="POST">
-                            <div class="right floated">
-                                <div class="ui buttons">
-                                    <button class="ui compact yellow button" type="submit">
-                                        <input type="hidden" name="add_favorite" value="<?php echo $i ?>" />
-                                        <?php if (in_array($i, $favoritePosition)) : ?>
-                                            <i class="fa fa-star"></i>
-                                        <?php else : ?>
-                                            <i class="fa fa-star-o"></i>
-                                        <?php endif; ?>
-                                    </button>
-                                    <button class="ui compact blue button">
-                                        <i class="fa fa-cart-plus"></i></i>
-                                    </button>
+                        <?php if (isset($_SESSION["user_id"])) : ?>
+                            <form action="recipe.php" method="POST">
+                                <div class="right floated">
+                                    <div class="ui buttons">
+                                        <button class="ui compact yellow button" type="submit">
+                                            <input type="hidden" name="add_favorite" value="<?php echo $i ?>" />
+                                            <?php if (in_array($i, $favoritePosition)) : ?>
+                                                <i class="fa fa-star"></i>
+                                            <?php else : ?>
+                                                <i class="fa fa-star-o"></i>
+                                            <?php endif; ?>
+                                        </button>
+                                        <button class="ui compact blue button">
+                                            <i class="fa fa-cart-plus"></i></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        <?php endif; ?>
                     </div>
                 </a>
             <?php endfor; ?>
