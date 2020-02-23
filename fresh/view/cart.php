@@ -9,12 +9,76 @@ if (!isset($_SESSION["user_id"])) {
     exit();
 }
 
+/* NOTE: this is just a simulation for a database*/
+if (isset($_POST["add_cart"])) {
+    if (isset($_SESSION["user_cart_list"])) {
+        $userCartList = $_SESSION["user_cart_list"];
+    } else {
+        $userCartList = array();
+    }
+
+    if (is_numeric($_POST["add_cart"])) {
+        if ((in_array($_POST["add_cart"], $userCartList)) === true) {
+            $userCartList = array_diff($userCartList, array($_POST["add_cart"]));
+        } else {
+            array_push($userCartList, $_POST["add_cart"]);
+        }
+    }
+    $_SESSION["user_cart_list"] = $userCartList;
+}
+
+if (isset($_SESSION["user_cart_list"])) {
+    $cartPosition = $_SESSION["user_cart_list"];
+} else {
+    $cartPosition = array();
+}
+
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
-$ingredient_name = array('apple', 'beef', 'cilantro');
-$ingredient_measure = array('count', 'lbs', 'bunch');
-$total_amount = array(4, 2, 1);
+$ingredient_name_1 = array('potato', 'beef', 'cilantro', 'cucumber');
+$ingredient_name_2 = array('tomato', 'butter', 'rice', 'olive');
+$ingredient_name_3 = array('onions', 'garlic', 'lettuce', 'cheese');
+$ingredient_name_4 = array('beans', 'corn', 'pork', 'flour');
+
+$ingredient_measure = array('count', 'lbs', 'bunch', 'oz');
+$total_amount = array(4, 2, 1, 5);
+
+
+$recipe = array(
+    "Cinnamon Baked French Toast", "Brown Sugar Oatmeal Cookies", "Wafflemaker Hash Browns",
+    "Pan Fried Pork Chops", "Chocolate Peanut Butter Pie", "Chicken Thighs with Creamy Mustard Sauce",
+    "Cauliflower Pizza Crust", "Pesto Lasagna Rolls", "Chicken Tortilla Dump Dinner",
+    "Chocolate Lava Cakes", "Alfredo Shrimp Scampi Dump Dinner", "Southern Red Velvet Cake"
+);
+
+
+function printIngredient ($item_1, $item_2){
+    if($item_1 == $item_2) :
+        ?>
+        <p><?php echo ucwords($item_1) ?></p>
+        <input type="hidden" name="<?php echo $item_1?>" value="<?php echo $item_1 ?>">
+    <?php
+        return true;
+    endif;
+    return false;
+}
+
+function testIngredient($mainIng, $ing_1, $ing_2, $ing_3){
+
+    $bool_ing = [];
+    if(printIngredient($mainIng,  $ing_1)) :
+        array_push($bool_ing, 1);
+    endif;
+    if(printIngredient($mainIng,  $ing_2)) :
+        array_push($bool_ing, 2);
+    endif;
+    if(printIngredient($mainIng,  $ing_3)) :
+        array_push($bool_ing, 3);
+    endif;
+
+    return $bool_ing;
+}
 ?>
 
 
@@ -110,31 +174,100 @@ $total_amount = array(4, 2, 1);
                 <!-- Display Data -->
                 <tbody>
                     <div class="field">
-                        <?php for ($i = 0; $i < count($ingredient_name); $i++) : ?>
+                        <?php for ($i = 0; $i < count($recipe); $i++) : ?>
+                        <?php if (in_array($i, $cartPosition)) : ?>
                             <tr class="center aligned">
                                 <td>
                                     <div class="field">
-                                        <p><?php echo ucwords($ingredient_name[$i]) ?></p>
-                                        <input type="hidden" name="<?php echo $ingredient_name[$i] ?>" value="<?php echo $ingredient_name[$i] ?>">
+<!--                                        --><?php
+//                                        $ings_exist = [true, true, true, true];
+//                                        if ($ings_exist[0]):
+//                                            $test_ings = testIngredient($ingredient_name_1[$i],$ingredient_name_2[$i], $ingredient_name_3[$i], $ingredient_name_4[$i]);
+//                                            for ($j=0; $j<count($test_ings); $j++):
+//                                                $ings_exist[$test_ings[$j]] = false;
+//                                                echo $test_ings[$j]." I am in 1\n";
+//                                            endfor;
+//                                            ?>
+<!--                                            <p>--><?php //echo ucwords($ingredient_name_1[$i]) ?><!--</p>-->
+<!--                                            <input type="hidden" name="--><?php //echo $ingredient_name_1[$i] ?><!--" value="--><?php //echo $ingredient_name_1[$i] ?><!--">-->
+<!--                                        --><?php
+//                                        endif;
+//                                        if ($ings_exist[1]):
+//                                            $test_ings = testIngredient($ingredient_name_2[$i], $ingredient_name_1[$i], $ingredient_name_3[$i], $ingredient_name_4[$i]);
+//                                            for ($j=0; $j<count($test_ings); $j++):
+//                                                $ings_exist[$test_ings[$j]] = false;
+//                                                echo $test_ings[$j]." I am in 2\n";
+//                                            endfor;
+//                                            ?>
+<!--                                            <p>--><?php //echo ucwords($ingredient_name_2[$i]) ?><!--</p>-->
+<!--                                            <input type="hidden" name="--><?php //echo $ingredient_name_2[$i] ?><!--" value="--><?php //echo $ingredient_name_2[$i] ?><!--">-->
+<!--                                        --><?php
+//                                        endif;
+//                                        if ($ings_exist[2]):
+//                                            $test_ings = testIngredient($ingredient_name_3[$i], $ingredient_name_1[$i],$ingredient_name_2[$i], $ingredient_name_4[$i]);
+//                                            for ($j=0; $j<count($test_ings); $j++):
+//                                                $ings_exist[$test_ings[$j]] = false;
+//                                                echo $test_ings[$j]." I am in 3\n";
+//                                            endfor;
+//                                            ?>
+<!--                                            <p>--><?php //echo ucwords($ingredient_name_3[$i]) ?><!--</p>-->
+<!--                                            <input type="hidden" name="--><?php //echo $ingredient_name_3[$i] ?><!--" value="--><?php //echo $ingredient_name_3[$i] ?><!--">-->
+<!--                                        --><?php
+//                                        endif;
+//                                        if ($ings_exist[3]):
+//                                            $test_ings = testIngredient($ingredient_name_4[$i], $ingredient_name_1[$i],$ingredient_name_2[$i], $ingredient_name_3[$i]);
+//                                            for ($j=0; $j<count($test_ings); $j++):
+//                                                $ings_exist[$test_ings[$j]] = false;
+//                                                echo $test_ings[$j]." I am in 4\n";
+//                                            endfor;
+//                                            ?>
+<!--                                            <p>--><?php //echo ucwords($ingredient_name_4[$i]) ?><!--</p>-->
+<!--                                            <input type="hidden" name="--><?php //echo $ingredient_name_4[$i] ?><!--" value="--><?php //echo $ingredient_name_4[$i] ?><!--">-->
+<!--                                        --><?php
+//                                        endif;
+//                                        ?>
+
+                                        <p><?php echo ucwords($ingredient_name_1[0]) ?></p>
+                                        <input type="hidden" name="<?php echo $ingredient_name_1[0] ?>" value="<?php echo $ingredient_name_1[0] ?>">
+                                        <p><?php echo ucwords($ingredient_name_2[1]) ?></p>
+                                        <input type="hidden" name="<?php echo $ingredient_name_2[1] ?>" value="<?php echo $ingredient_name_2[1] ?>">
+                                        <p><?php echo ucwords($ingredient_name_3[2]) ?></p>
+                                        <input type="hidden" name="<?php echo $ingredient_name_3[2] ?>" value="<?php echo $ingredient_name_3[2] ?>">
+                                        <p><?php echo ucwords($ingredient_name_4[3]) ?></p>
+                                        <input type="hidden" name="<?php echo $ingredient_name_4[3] ?>" value="<?php echo $ingredient_name_4[3] ?>">
+
                                     </div>
                                 </td>
                                 <td>
                                     <div class="field">
-                                        <p><?php echo $total_amount[$i] ?></p>
-                                        <input type="hidden" name="<?php echo $ingredient_name[$i] ?>_total" value="<?php echo $total_amount[$i] ?>">
+                                        <p><?php shuffle($total_amount); echo $total_amount[0] ?></p>
+                                        <input type="hidden" name="<?php echo $ingredient_name_1[0] ?>_total" value="<?php echo $total_amount[0] ?>">
+                                        <p><?php shuffle($total_amount); echo $total_amount[1] ?></p>
+                                        <input type="hidden" name="<?php echo $ingredient_name_2[1] ?>_total" value="<?php echo $total_amount[1] ?>">
+                                        <p><?php shuffle($total_amount); echo $total_amount[2] ?></p>
+                                        <input type="hidden" name="<?php echo $ingredient_name_3[2] ?>_total" value="<?php echo $total_amount[2] ?>">
+                                        <p><?php shuffle($total_amount); echo $total_amount[3] ?></p>
+                                        <input type="hidden" name="<?php echo $ingredient_name_4[3] ?>_total" value="<?php echo $total_amount[3] ?>">
                                     </div>
                                 </td>
                                 <td>
-                                    <p><?php echo $ingredient_measure[$i] ?></p>
-                                    <input class="right aligned" type="hidden" name="<?php echo $ingredient_name[$i] ?>_measure" value="<?php echo $ingredient_measure[$i] ?>">
+                                    <p><?php shuffle($ingredient_measure); echo $ingredient_measure[0] ?></p>
+                                    <input class="right aligned" type="hidden" name="<?php echo $ingredient_name_1[0] ?>_measure" value="<?php echo $ingredient_measure[0] ?>">
+                                    <p><?php shuffle($ingredient_measure); echo $ingredient_measure[1] ?></p>
+                                    <input class="right aligned" type="hidden" name="<?php echo $ingredient_name_2[1] ?>_measure" value="<?php echo $ingredient_measure[1] ?>">
+                                    <p><?php shuffle($ingredient_measure); echo $ingredient_measure[2] ?></p>
+                                    <input class="right aligned" type="hidden" name="<?php echo $ingredient_name_3[2] ?>_measure" value="<?php echo $ingredient_measure[2] ?>">
+                                    <p><?php shuffle($ingredient_measure); echo $ingredient_measure[3] ?></p>
+                                    <input class="right aligned" type="hidden" name="<?php echo $ingredient_name_4[3] ?>_measure" value="<?php echo $ingredient_measure[3] ?>">
                                 </td>
                                 <td>
                                     <div class="ui checkbox">
-                                        <input type="checkbox" name="<?php echo $ingredient_name[$i] ?>_check" checked>
+                                        <input type="checkbox" name="<?php echo $ingredient_name_1[$i] ?>_check" checked>
                                         <label></label>
                                     </div>
                                 </td>
                             </tr>
+                            <?php endif; ?>
                         <?php endfor; ?>
                     </div>
                 </tbody>
@@ -143,6 +276,18 @@ $total_amount = array(4, 2, 1);
             <button class="ui right floated teal button" type="submit">Submit</button>
         </form>
     </div>
+
+
+        <!-- Empty List -->
+        <?php if (empty($cartPosition)) : ?>
+            <div class="ui container">
+                <div class="ui center aligned inverted grey segment">
+                    <i class="warning icon"></i>
+                    No item found! Please go to recipe menu to find your favorite.
+                </div>
+            </div>
+        <?php endif; ?>
+
 </body>
 
 </html>

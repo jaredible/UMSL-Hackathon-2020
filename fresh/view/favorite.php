@@ -35,6 +35,7 @@ if (isset($_SESSION["user_favorite_list"])) {
 } else {
     $favoritePosition = array();
 }
+
 $recipe = array(
     "Cinnamon Baked French Toast", "Brown Sugar Oatmeal Cookies", "Wafflemaker Hash Browns",
     "Pan Fried Pork Chops", "Chocolate Peanut Butter Pie", "Chicken Thighs with Creamy Mustard Sauce",

@@ -12,22 +12,55 @@ if (!isset($_POST["submit_cart"])) {
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
-$ingredient_name = array('apple', 'beef', 'cilantro');
-$ingredient_measure = array('count', 'lbs', 'bunch');
-$total_amount = array(4, 2, 1);
+$ingredient_name = array('potato', 'beef', 'cilantro', 'cucumber');
+$ingredient_name_2 = array('tomato', 'butter', 'rice', 'olive');
+$ingredient_name_3 = array('onions', 'garlic', 'lettuce', 'cheese');
+$ingredient_name_4 = array('beans', 'corn', 'pork', 'flour');
 
-$order_ingredient_name = [];
-$order_ingredient_total = [];
-$order_ingredient_measure = [];
-foreach ($ingredient_name as $element) {
-    if (isset($_POST[$element . '_check'])) {
-        if ($_POST[$element . '_check'] == 'on') {
-            array_push($order_ingredient_name, $_POST[$element]);
-            array_push($order_ingredient_total, $_POST[$element . '_total']);
-            array_push($order_ingredient_measure, $_POST[$element . '_measure']);
+$ingredient_measure = array('count', 'lbs', 'bunch', 'oz');
+$total_amount = array(4, 2, 1, 5);
+
+$order_ingredient_name_1 = [];
+$order_ingredient_total_1 = [];
+$order_ingredient_measure_1 = [];
+$order_ingredient_name_2 = [];
+$order_ingredient_total_2 = [];
+$order_ingredient_measure_2 = [];
+$order_ingredient_name_3 = [];
+$order_ingredient_total_3 = [];
+$order_ingredient_measure_3 = [];
+$order_ingredient_name_4 = [];
+$order_ingredient_total_4 = [];
+$order_ingredient_measure_4 = [];
+
+
+
+function setValues($passedArray, $order_1, $order_2, $order_3){
+    foreach ($passedArray as $element) {
+        if (isset($_POST[$element . '_check'])) {
+            if ($_POST[$element . '_check'] == 'on') {
+                if(isset($_POST[$element])){
+                    array_push($order_1, $_POST[$element]);
+                }
+                if(isset($_POST[$element])){
+                    array_push($order_2, $_POST[$element . '_total']);
+                }
+                if(isset($_POST[$element])){
+                    array_push($order_3, $_POST[$element . '_measure']);
+                }
+
+
+
+            }
         }
     }
 }
+
+setValues($ingredient_name, $order_ingredient_name_1, $order_ingredient_total_1, $order_ingredient_measure_1);
+setValues($ingredient_name_2, $order_ingredient_name_2, $order_ingredient_total_2, $order_ingredient_measure_2);
+setValues($ingredient_name_3, $order_ingredient_name_3, $order_ingredient_total_3, $order_ingredient_measure_3);
+setValues($ingredient_name_4, $order_ingredient_name_4, $order_ingredient_total_4, $order_ingredient_measure_4);
+
 ?>
 
 <!DOCTYPE html>
@@ -107,46 +140,36 @@ foreach ($ingredient_name as $element) {
     <!-- Ingredient Table -->
     <div class="ui container">
         <form class="ui form" method="POST" action="payment.php">
-            <table class="ui selectable fixed inverted striped grey table">
-                <!-- Column Name: Label -->
+            <table class="ui unstackable table">
                 <thead>
-                    <tr class="center aligned">
-                        <th><strong>Ingredient Name</strong></th>
-                        <th><strong>Total Amount</strong></th>
-                        <th><strong>Measure</strong></th>
-                        <th><strong>Include</strong></th>
-                    </tr>
+                <tr>
+                    <th>Ingredient name</th>
+                    <th>Total amount</th>
+                    <th class="right aligned">Measure</th>
+                </tr>
                 </thead>
-
-                <!-- Display Data -->
                 <tbody>
                     <div class="field">
-                        <?php for ($i = 0; $i < count($ingredient_name); $i++) : ?>
-                            <tr class="center aligned">
+                        <?php for($i=0; $i<count($order_ingredient_name_1); $i++):?>
+                            <tr>
                                 <td>
                                     <div class="field">
-                                        <p><?php echo ucwords($ingredient_name[$i]) ?></p>
-                                        <input type="hidden" name="<?php echo $ingredient_name[$i] ?>" value="<?php echo $ingredient_name[$i] ?>">
+                                        <input readonly type="text" name="<?php print $order_ingredient_name_1[$i]?>"
+                                               value="<?php print $order_ingredient_name_1[$i]?>">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="field">
-                                        <p><?php echo $total_amount[$i] ?></p>
-                                        <input type="hidden" name="<?php echo $ingredient_name[$i] ?>_total" value="<?php echo $total_amount[$i] ?>">
+                                        <input readonly type="text" name="<?php print $order_ingredient_name_1[$i]?>_total"
+                                               value="<?php print $order_ingredient_total_1[$i]?>">
                                     </div>
                                 </td>
-                                <td>
-                                    <p><?php echo $ingredient_measure[$i] ?></p>
-                                    <input class="right aligned" type="hidden" name="<?php echo $ingredient_name[$i] ?>_measure" value="<?php echo $ingredient_measure[$i] ?>">
-                                </td>
-                                <td>
-                                    <div class="ui checkbox">
-                                        <input type="checkbox" name="<?php echo $ingredient_name[$i] ?>_check" checked>
-                                        <label></label>
-                                    </div>
+                                <td class="right aligned">
+                                    <input class="right aligned" readonly type="text" name="<?php print $order_ingredient_name_1[$i]?>_measure"
+                                           value="<?php print $order_ingredient_measure_1[$i]?>">
                                 </td>
                             </tr>
-                        <?php endfor; ?>
+                        <?php endfor;?>
                     </div>
                 </tbody>
             </table>

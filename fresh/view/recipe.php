@@ -26,11 +26,36 @@ if (isset($_POST["add_favorite"])) {
     $_SESSION["user_favorite_list"] = $userList;
 }
 
+if (isset($_POST["add_cart"])) {
+    if (isset($_SESSION["user_cart_list"])) {
+        $userCartList = $_SESSION["user_cart_list"];
+    } else {
+        $userCartList = array();
+    }
+
+    if (is_numeric($_POST["add_cart"])) {
+        if ((in_array($_POST["add_cart"], $userCartList)) === true) {
+            $userCartList = array_diff($userCartList, array($_POST["add_cart"]));
+        } else {
+            array_push($userCartList, $_POST["add_cart"]);
+        }
+    }
+    $_SESSION["user_cart_list"] = $userCartList;
+}
+
+if (isset($_SESSION["user_cart_list"])) {
+    $cartPosition = $_SESSION["user_cart_list"];
+} else {
+    $cartPosition = array();
+}
+
 if (isset($_SESSION["user_favorite_list"])) {
     $favoritePosition = $_SESSION["user_favorite_list"];
 } else {
     $favoritePosition = array();
 }
+
+
 $recipe = array(
     "Cinnamon Baked French Toast", "Brown Sugar Oatmeal Cookies", "Wafflemaker Hash Browns",
     "Pan Fried Pork Chops", "Chocolate Peanut Butter Pie", "Chicken Thighs with Creamy Mustard Sauce",
@@ -76,6 +101,8 @@ if (isset($_POST["dislike_id"]) && isset($_POST["dislike_value"])) {
     $dislikes[intval($_POST["dislike_id"])] = intval($_POST["dislike_value"]);
     $_SESSION["dislikes"] = $dislikes;
 }
+
+//unset($_SESSION["likes"] , $_SESSION["dislikes"])
 ?>
 
 <!DOCTYPE html>
@@ -218,6 +245,7 @@ if (isset($_POST["dislike_id"]) && isset($_POST["dislike_value"])) {
                                             <?php endif; ?>
                                         </button>
                                         <button class="ui compact blue button">
+                                            <input type="hidden" name="add_cart" value="<?php echo $i ?>" />
                                             <i class="fa fa-cart-plus"></i></i>
                                         </button>
                                     </div>
