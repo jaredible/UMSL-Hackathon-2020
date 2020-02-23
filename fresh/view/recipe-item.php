@@ -12,7 +12,7 @@ $recipe = array(
     "Cauliflower Pizza Crust", "Pesto Lasagna Rolls", "Chicken Tortilla Dump Dinner",
     "Chocolate Lava Cakes", "Alfredo Shrimp Scampi Dump Dinner", "Southern Red Velvet Cake"
 );
-$recipeInstruction = [
+$recipeInstruction = array(
     "Cook XYZ",
     "Cook XYZ",
     "Cook XYZ",
@@ -25,7 +25,7 @@ $recipeInstruction = [
     "Cook XYZ",
     "Cook XYZ",
     "Cook XYZ"
-];
+);
 
 $index = 0;
 if (isset($_GET['recipeItem'])) {

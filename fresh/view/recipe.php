@@ -6,6 +6,30 @@ session_start();
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
+
+/* NOTE: this is just a simulation */
+if (isset($_POST["add_favorite"])) {
+    if (isset($_SESSION["user_favorite_list"])) {
+        $userList = $_SESSION["user_favorite_list"];
+    } else {
+        $userList = array();
+    }
+
+    if (is_numeric($_POST["add_favorite"])) {
+        if ((in_array($_POST["add_favorite"], $userList)) === true) {
+            $userList = array_diff($userList, array($_POST["add_favorite"]));
+        } else {
+            array_push($userList, $_POST["add_favorite"]);
+        }
+    }
+    $_SESSION["user_favorite_list"] = $userList;
+}
+
+if (isset($_SESSION["user_favorite_list"])) {
+    $favoritePosition = $_SESSION["user_favorite_list"];
+} else {
+    $favoritePosition = array();
+}
 $recipe = array(
     "Cinnamon Baked French Toast", "Brown Sugar Oatmeal Cookies", "Wafflemaker Hash Browns",
     "Pan Fried Pork Chops", "Chocolate Peanut Butter Pie", "Chicken Thighs with Creamy Mustard Sauce",
@@ -27,8 +51,11 @@ $recipeDescription = array(
     "It's hard to go wrong with a classic. Red velvet cake is layered with sweet cream cheese frosting for a tasty and traditional treat."
 );
 
-$likes = [14, 18, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-$dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+$likes = array(14, 18, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+$dislikes = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+//
+// unset($_SESSION["user_favorite_list"]);
 ?>
 
 <!DOCTYPE html>
@@ -149,23 +176,28 @@ $dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                             </button>
                         </div>
 
-                        <div class="right floated">
-                            <div class="ui buttons">
-                                <button class="ui compact yellow button">
-                                    <i class="fa fa-star"></i>
-                                </button>
-                                <button class="ui compact blue button">
-                                    <i class="fa fa-cart-plus"></i></i>
-                                </button>
+                        <form action="recipe.php" method="POST">
+                            <div class="right floated">
+                                <div class="ui buttons">
+                                    <button class="ui compact yellow button" type="submit">
+                                        <input type="hidden" name="add_favorite" value="<?php echo $i ?>" />
+                                        <?php if (in_array($i, $favoritePosition)) : ?>
+                                            <i class="fa fa-star"></i>
+                                        <?php else : ?>
+                                            <i class="fa fa-star-o"></i>
+                                        <?php endif; ?>
+                                    </button>
+                                    <button class="ui compact blue button">
+                                        <i class="fa fa-cart-plus"></i></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </a>
             <?php endfor; ?>
         </div>
     </div>
-
-
 </body>
 
 </html>
