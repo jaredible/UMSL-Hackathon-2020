@@ -6,6 +6,31 @@ session_start();
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
+
+/* NOTE: this is just a simulation for a database */
+//Dummy data to display
+if (isset($_POST["add_favorite"])) {
+    if (isset($_SESSION["user_favorite_list"])) {
+        $userList = $_SESSION["user_favorite_list"];
+    } else {
+        $userList = array();
+    }
+
+    if (is_numeric($_POST["add_favorite"])) {
+        if ((in_array($_POST["add_favorite"], $userList)) === true) {
+            $userList = array_diff($userList, array($_POST["add_favorite"]));
+        } else {
+            array_push($userList, $_POST["add_favorite"]);
+        }
+    }
+    $_SESSION["user_favorite_list"] = $userList;
+}
+
+if (isset($_SESSION["user_favorite_list"])) {
+    $favoritePosition = $_SESSION["user_favorite_list"];
+} else {
+    $favoritePosition = array();
+}
 $recipe = array(
     "Cinnamon Baked French Toast", "Brown Sugar Oatmeal Cookies", "Wafflemaker Hash Browns",
     "Pan Fried Pork Chops", "Chocolate Peanut Butter Pie", "Chicken Thighs with Creamy Mustard Sauce",
@@ -27,8 +52,30 @@ $recipeDescription = array(
     "It's hard to go wrong with a classic. Red velvet cake is layered with sweet cream cheese frosting for a tasty and traditional treat."
 );
 
-$likes = [14, 18, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-$dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+/* Simulating getting like and dislike values */
+if (!isset($_SESSION["likes"])) {
+    $l = array_fill(0, 12, 0);
+    $_SESSION["likes"] = $l;
+}
+
+if (!isset($_SESSION["dislikes"])) {
+    $dl = array_fill(0, 12, 0);
+    $_SESSION["dislikes"] = $dl;
+}
+
+$likes = $_SESSION["likes"];
+$dislikes = $_SESSION["dislikes"];
+
+/* Simulating updating like and dislike values */
+if (isset($_POST["like_id"]) && isset($_POST["like_value"])) {
+    $likes[intval($_POST["like_id"])] = intval($_POST["like_value"]);
+    $_SESSION["likes"] = $likes;
+}
+
+if (isset($_POST["dislike_id"]) && isset($_POST["dislike_value"])) {
+    $dislikes[intval($_POST["dislike_id"])] = intval($_POST["dislike_value"]);
+    $_SESSION["dislikes"] = $dislikes;
+}
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +104,6 @@ $dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     <!-- JS -->
     <script type="text/javascript" src="../js/misc.js"></script>
-    <script type="text/javascript" src="../js/index.js"></script>
     <script type="text/javascript" src="../js/recipe.js"></script>
 
     <title>Recipe</title>
@@ -71,17 +117,23 @@ $dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     <!-- Navigation Menu -->
     <div class="ui container">
-
         <!-- Navigation Menu -->
         <div class="ui borderless stackable no-top-border-radius no-margin inverted pointing menu">
-            <!-- Menu Dropdown Button -->
-            <a class="item"><i class="fa fa-bars"></i></a>
+            <!-- Home Button -->
+            <a class="item" href="../index.php"><i class="fa fa-home"></i></a>
             &emsp;
 
             <!-- Page Menu -->
             <?php for ($i = 0; $i < count($headerArray); $i++) : ?>
-                <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
-                            endif; ?>item" href="./<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                <?php if (in_array(strtolower($headerArray[$i]), array("favorite", "cart"))) : ?>
+                    <?php if (isset($_SESSION["user_id"])) : ?>
+                        <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
+                                    endif; ?>item" href="./<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                    <?php endif; ?>
+                <?php else : ?>
+                    <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
+                                endif; ?>item" href="./<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                <?php endif; ?>
             <?php endfor; ?>
 
             <!-- Refresh/Login Button -->
@@ -108,7 +160,7 @@ $dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     <div class="ui hidden divider"></div>
 
-    <!-- List Recipes and redirect to recipe information after clicked Information -->
+    <!-- List recipes and redirect to recipe information after clicked information -->
     <div class="ui container">
         <div class="ui four stackable cards">
             <?php for ($i = 0; $i < count($recipe); $i++) : ?>
@@ -120,54 +172,63 @@ $dislikes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                         </div>
                     </div>
 
-                    <div class="extra content">
-                        <div class="left floated">
-                            <div class="ui labeled button">
-                                <button id="like<?php print $i ?>" class="ui compact green button">
-                                    <i class="fa fa-thumbs-up"></i>
-                                </button>
-                                <span id="l-val<?php print $i ?>" class="ui basic green label">
-                                    <?php print $likes[$i] ?>
-                                </span>
+                    <?php if (isset($_SESSION["user_id"])) : ?>
+                        <div class="extra content">
+                            <div class="left floated">
+                                <div class="ui labeled button">
+                                    <button id="like<?php echo $i ?>" class="ui compact green button">
+                                        <i class="fa fa-thumbs-up"></i>
+                                    </button>
+                                    <span id="l-val<?php echo $i ?>" class="ui basic green label">
+                                        <?php echo $likes[$i] ?>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="right floated">
+                                <div class="ui labeled button">
+                                    <button id="dislike<?php echo $i ?>" class="ui compact red button">
+                                        <i class="fa fa-thumbs-down"></i>
+                                    </button>
+                                    <span id="d-val<?php echo $i ?>" class="ui basic red label">
+                                        <?php echo $dislikes[$i] ?>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="right floated">
-                            <div class="ui labeled button">
-                                <button id="dislike<?php print $i ?>" class="ui compact red button">
-                                    <i class="fa fa-thumbs-down"></i>
-                                </button>
-                                <span id="d-val<?php print $i ?>" class="ui basic red label">
-                                    <?php print $dislikes[$i] ?>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endif; ?>
 
                     <div class="extra content">
                         <div class="left floated">
-                            <button id="like<?php print $i ?>" class="ui compact teal button" onclick="window.location.href ='recipe-item.php?recipeItem=<?php echo $i ?>'">
+                            <button id="like<?php echo $i ?>" class="ui compact teal button" onclick="window.location.href ='recipe-item.php?recipeItem=<?php echo $i ?>'">
                                 <i class="fa fa-list"></i>&emsp;More
                             </button>
                         </div>
 
-                        <div class="right floated">
-                            <div class="ui buttons">
-                                <button class="ui compact yellow button">
-                                    <i class="fa fa-star"></i>
-                                </button>
-                                <button class="ui compact blue button">
-                                    <i class="fa fa-cart-plus"></i></i>
-                                </button>
-                            </div>
-                        </div>
+                        <?php if (isset($_SESSION["user_id"])) : ?>
+                            <form action="recipe.php" method="POST">
+                                <div class="right floated">
+                                    <div class="ui buttons">
+                                        <button class="ui compact yellow button" type="submit">
+                                            <input type="hidden" name="add_favorite" value="<?php echo $i ?>" />
+                                            <?php if (in_array($i, $favoritePosition)) : ?>
+                                                <i class="fa fa-star"></i>
+                                            <?php else : ?>
+                                                <i class="fa fa-star-o"></i>
+                                            <?php endif; ?>
+                                        </button>
+                                        <button class="ui compact blue button">
+                                            <i class="fa fa-cart-plus"></i></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        <?php endif; ?>
                     </div>
                 </a>
             <?php endfor; ?>
         </div>
     </div>
-
-
 </body>
 
 </html>

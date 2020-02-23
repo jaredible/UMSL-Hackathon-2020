@@ -3,9 +3,9 @@
 /* Start Session */
 session_start();
 
-/* If user didn't login, redirect to a specific page */
-if (!isset($_SESSION["user_id"])) {
-    header("Location: ./login.php");
+/* If user didn't submit from cart page, redirect to a specific page */
+if (!isset($_POST["submit_cart"])) {
+    header("Location: ./cart.php");
     exit();
 }
 
@@ -15,9 +15,20 @@ $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 $ingredient_name = array('apple', 'beef', 'cilantro');
 $ingredient_measure = array('count', 'lbs', 'bunch');
 $total_amount = array(4, 2, 1);
+
+$order_ingredient_name = [];
+$order_ingredient_total = [];
+$order_ingredient_measure = [];
+foreach ($ingredient_name as $element) {
+    if (isset($_POST[$element . '_check'])) {
+        if ($_POST[$element . '_check'] == 'on') {
+            array_push($order_ingredient_name, $_POST[$element]);
+            array_push($order_ingredient_total, $_POST[$element . '_total']);
+            array_push($order_ingredient_measure, $_POST[$element . '_measure']);
+        }
+    }
+}
 ?>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -46,7 +57,7 @@ $total_amount = array(4, 2, 1);
     <!-- JS -->
     <script type="text/javascript" src="../js/misc.js"></script>
 
-    <title>Cart</title>
+    <title>Confirmation</title>
 </head>
 
 <body id="main-background" class="dimmable">
@@ -95,7 +106,7 @@ $total_amount = array(4, 2, 1);
 
     <!-- Ingredient Table -->
     <div class="ui container">
-        <form class="ui form" method="POST" action="confirmation.php">
+        <form class="ui form" method="POST" action="payment.php">
             <table class="ui selectable fixed inverted striped grey table">
                 <!-- Column Name: Label -->
                 <thead>
@@ -139,8 +150,8 @@ $total_amount = array(4, 2, 1);
                     </div>
                 </tbody>
             </table>
-            <input type="hidden" name="submit_cart" />
-            <button class="ui right floated teal button" type="submit">Submit</button>
+            <button class="ui right floated red button" onclick="window.location.href ='cart.php'">Cancel</button>
+            <button class="ui right floated green button" type="submit" name="confirmation_submit"">Proceed</button>
         </form>
     </div>
 </body>
