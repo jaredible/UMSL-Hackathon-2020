@@ -81,8 +81,13 @@ $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
                                     endif; ?>item" href="./view/<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
                     <?php endif; ?>
                 <?php else : ?>
-                    <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
-                                endif; ?>item" href="./view/<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                    <?php if (in_array(strtolower($headerArray[$i]), array("tournament"))) : ?>
+                        <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
+                                    endif; ?>item" href="./tournament/<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                    <?php else : ?>
+                        <a class="<?php if (basename(__FILE__, ".php") == strtolower($headerArray[$i])) : echo "active ";
+                                    endif; ?>item" href="./view/<?php echo strtolower($headerArray[$i]) ?>.php"><?php echo $headerArray[$i] ?></a>
+                    <?php endif; ?>
                 <?php endif; ?>
             <?php endfor; ?>
 
@@ -138,17 +143,40 @@ $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
         </div>
         <div class="ui container">
             <div class="ui no-top-border-radius no-bottom-border-radius segment">
-                <div class="ui three column very relaxed container-center grid">
+                <div class="ui three column very relaxed grid">
+                    <div class="column">
+                        <div class="container-center sub-intro-text-black">
+                            <strong>
+                                <p>Problem</p>
+                            </strong>
+                        </div>
+                        <p>Americans spend an estimated 165 billion dollars on wasted food annually (Gunders 4). Gunders found the in-store food loss estimate was 43 billion pounds in 2008, which amounts to ten percent of the total food supply of retailers in the U.S. In-store food loss in 2008 estimated to be 43 billion pounds, ten percent of the total food supply of retailers(10)</p>
+                        <p><i>Source: Dana Gunders, NRDC, Aug. 2012</i></p>
+                    </div>
+                    <div class="column">
+                        <div class="container-center sub-intro-text-black">
+                            <strong>
+                                <p>Pre-Purchasing</p>
+                            </strong>
+                        </div>
+                        <p>By pre-purchasing the proper ingredients for the planned recipes allows consumers to save time and money. Consumers will save time and money since consumers will not need to search for the correct items and quantities.</p>
+                        <p><i>Source: Dana Gunders, NRDC, Aug. 2012</i></p>
+                    </div>
+                    <div class="column">
+                        <div class="container-center sub-intro-text-black">
+                            <strong>
+                                <p>Retailers</p>
+                            </strong>
+                        </div>
+                        <p>For retailers, by allowing for consumers to pre-purchase specific quantities of items for our listed recipes, it allows for the retailers to set aside inventory that will be set aside for the consumers orders.</p>
+                        <p><i>Source: Dana Gunders, NRDC, Aug. 2012</i></p>
+                    </div>
+                </div>
 
-                    <div class="column">
-                        <p>Merp</p>
-                    </div>
-                    <div class="column">
-                        <p>Merp</p>
-                    </div>
-                    <div class="column">
-                        <p>Merp</p>
-                    </div>
+                <div class="ui hidden divider"></div>
+
+                <div class="container-center">
+                    <p><i>NRDC: Wasted - How America Is Losing Up to 40 Percent of Its Food from Farm to Fork to Landfill, NRDC, Aug. 2012, www.nrdc.org/sites/default/files/wasted-food-IP.pdf.</i></p>
                 </div>
             </div>
         </div>

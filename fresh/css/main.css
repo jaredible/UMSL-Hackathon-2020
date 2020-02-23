@@ -75,6 +75,11 @@ html {
 	font-size: 1.25em !important;
 }
 
+.sub-intro-text-black {
+	color: #000000 !important;
+	font-size: 1.25em !important;
+}
+
 .image-brightness {
 	filter: brightness(60%) !important;
 }
