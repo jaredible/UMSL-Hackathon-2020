@@ -227,6 +227,7 @@ function testIngredient($mainIng, $ing_1, $ing_2, $ing_3){
 //                                        endif;
 //                                        ?>
 
+
                                         <p><?php echo ucwords($ingredient_name_1[0]) ?></p>
                                         <input type="hidden" name="<?php echo $ingredient_name_1[0] ?>" value="<?php echo $ingredient_name_1[0] ?>">
                                         <p><?php echo ucwords($ingredient_name_2[1]) ?></p>

@@ -26,6 +26,7 @@ if (isset($_POST["add_favorite"])) {
     $_SESSION["user_favorite_list"] = $userList;
 }
 
+
 if (isset($_POST["add_cart"])) {
     if (isset($_SESSION["user_cart_list"])) {
         $userCartList = $_SESSION["user_cart_list"];

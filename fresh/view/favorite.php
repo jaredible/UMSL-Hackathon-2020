@@ -176,6 +176,7 @@ $recipeDescription = array(
             <?php endfor; ?>
         </div>
 
+
         <!-- Empty List -->
         <?php if (empty($favoritePosition)) : ?>
             <div class="ui container">
