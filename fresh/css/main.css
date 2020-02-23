@@ -33,12 +33,16 @@ html {
 	margin: 0.1rem !important;
 }
 
-.max-width {
-	width: 100%;
+.no-padding {
+	padding: 0 !important;
 }
 
 .no-margin {
 	margin: 0 !important;
+}
+
+.max-width {
+	width: 100%;
 }
 
 .no-top-border-radius {
@@ -47,4 +51,51 @@ html {
 
 .no-bottom-border-radius {
 	border-radius: 0.2rem 0.2rem 0 0 !important;
+}
+
+.container-center {
+	text-align: center !important;
+}
+
+.center-overlay {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.intro-text {
+	text-align: center !important;
+	color: #00ffc8 !important;
+	font-size: 5em !important;
+}
+
+.sub-intro-text {
+	color: #ffffff !important;
+	font-size: 1.25em !important;
+}
+
+.image-brightness {
+	filter: brightness(60%) !important;
+}
+
+.transparent {
+	background-color: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+}
+
+.semi-black-transparent {
+	background-color: rgba(0, 0, 0, 0.45) !important;
+	border: none !important;
+	box-shadow: none !important;
+}
+
+@media only screen and (max-width: 1024px) {
+	.center-overlay {
+		position: initial;
+		top: initial;
+		left: initial;
+		transform: initial;
+	}
 }

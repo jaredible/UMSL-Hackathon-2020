@@ -112,7 +112,46 @@ $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
     <!-- Display Information -->
     <div class="ui container">
-        <!-- Stuff Go HERE -->
+        <!-- Display Information -->
+        <div class="ui container">
+            <img class="ui fluid image-brightness image" alt="https://www.gannett-cdn.com/-mm-/4a626df9bec418678fe2bddeec6b91e0a2236529/c=12-0-5630-3174/local/-/media/2016/05/26/USATODAY/USATODAY/635998479840624001-HandsShot.jpeg?width=660&amp;height=373&amp;fit=crop&amp;format=pjpg&amp;auto=webp" src="./public/img/main-background.jpeg">
+            <div class="center-overlay">
+                <div class="ui transparent segment">
+                    <h1 class="ui intro-text white header">
+                        Our Mission
+                    </h1>
+
+                    <div class="ui semi-black-transparent segment">
+                        <p class="sub-intro-text"><strong>As Fresh</strong>, our goal is to reduce food waste in local communities for grocery stores, supermarkets, and consumers. Fresh's objective, in partnership with retailers, is to reduce food waste for retailers and consumers, as well as finding ways to reduce our carbon foot-print and unnecessary waste in our communities.
+                        </p>
+                    </div>
+
+                    <div class="ui hidden divider"></div>
+
+                    <div class="container-center">
+                        <a class="ui olive big button" href="./view/login.php">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui container">
+            <div class="ui no-top-border-radius no-bottom-border-radius segment">
+                <div class="ui three column very relaxed container-center grid">
+
+                    <div class="column">
+                        <p>Merp</p>
+                    </div>
+                    <div class="column">
+                        <p>Merp</p>
+                    </div>
+                    <div class="column">
+                        <p>Merp</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
