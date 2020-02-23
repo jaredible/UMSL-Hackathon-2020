@@ -111,7 +111,7 @@ foreach ($ingredient_name as $element) {
 
     <!-- Ingredient Table -->
     <div class="ui container">
-        <form class="ui form" method="POST" action="payment.php">
+        <form class="ui form" method="POST" action="../error/error.html">
             <table class="ui selectable fixed inverted striped grey table">
                 <!-- Column Name: Label -->
                 <thead>
@@ -119,7 +119,6 @@ foreach ($ingredient_name as $element) {
                         <th><strong>Ingredient Name</strong></th>
                         <th><strong>Total Amount</strong></th>
                         <th><strong>Measure</strong></th>
-                        <th><strong>Include</strong></th>
                     </tr>
                 </thead>
 
@@ -143,12 +142,6 @@ foreach ($ingredient_name as $element) {
                                 <td>
                                     <p><?php echo $ingredient_measure[$i] ?></p>
                                     <input class="right aligned" type="hidden" name="<?php echo $ingredient_name[$i] ?>_measure" value="<?php echo $ingredient_measure[$i] ?>">
-                                </td>
-                                <td>
-                                    <div class="ui checkbox">
-                                        <input type="checkbox" name="<?php echo $ingredient_name[$i] ?>_check" checked>
-                                        <label></label>
-                                    </div>
                                 </td>
                             </tr>
                         <?php endfor; ?>
