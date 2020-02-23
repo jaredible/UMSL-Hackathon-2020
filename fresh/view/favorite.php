@@ -3,10 +3,16 @@
 /* Start Session */
 session_start();
 
+/* If user didn't login, redirect to a specific page */
+if (!isset($_SESSION["user_id"])) {
+    header("Location: ./login.php");
+    exit();
+}
+
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
-/* NOTE: this is just a simulation */
+/* NOTE: this is just a simulation for a database*/
 if (isset($_POST["add_favorite"])) {
     if (isset($_SESSION["user_favorite_list"])) {
         $userList = $_SESSION["user_favorite_list"];
@@ -144,6 +150,7 @@ $recipeDescription = array(
                                     <i class="fa fa-list"></i>&emsp;More
                                 </button>
                             </div>
+
 
                             <form action="favorite.php" method="POST">
                                 <div class="right floated">

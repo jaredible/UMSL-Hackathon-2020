@@ -3,6 +3,12 @@
 /* Start Session */
 session_start();
 
+/* If user didn't login, redirect to a specific page */
+if (!isset($_SESSION["user_id"])) {
+    header("Location: ./login.php");
+    exit();
+}
+
 /* Make table headers */
 $headerArray = array("Tournament", "Recipe", "Favorite", "Cart");
 
@@ -90,7 +96,7 @@ $total_amount = array(4, 2, 1);
     <!-- Ingredient Table -->
     <div class="ui container">
         <form class="ui form" method="POST" action="confirmation.php">
-            <table class="ui selectable fixed striped table">
+            <table class="ui selectable fixed inverted striped grey table">
                 <!-- Column Name: Label -->
                 <thead>
                     <tr class="center aligned">
@@ -125,7 +131,7 @@ $total_amount = array(4, 2, 1);
                                 <td>
                                     <div class="ui checkbox">
                                         <input type="checkbox" name="<?php echo $ingredient_name[$i] ?>_check" checked>
-                                        <label>Add</label>
+                                        <label></label>
                                     </div>
                                 </td>
                             </tr>
