@@ -1,0 +1,7 @@
+body {
+    background-color: #f1f1f1;
+    background-image: url(../img/error.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
